@@ -1,8 +1,14 @@
 from rest_framework import serializers
 from .models import *
-#from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
+from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 
 
+
+class TokenPairSerializer(TokenObtainPairSerializer):
+
+    def validate(self, attrs):
+        data = super(TokenPairSerializer, self).validate(attrs)
+        return data
 
 class ActorSerializer(serializers.ModelSerializer):
     user = serializers.StringRelatedField()
@@ -18,30 +24,23 @@ class ClientSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 
-class Adress_distributorSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Adress_distributor
-        fields = "__all__"
+class AdressDistributorSerializer(serializers.ModelSerializer):
 
-
-class SeedCategorySerializer(serializers.ModelSerializer):
-   
+    def to_representation(self, obj):
+        rep = super().to_representation(obj)
+        rep['distributor'] = obj.user.username
+        return rep  
 
     class Meta:
-        model = SeedCategory
+        model = AdressDistributor
         fields = "__all__"
+
 
 class VarietySerializer(serializers.ModelSerializer):
    
 
     class Meta:
         model = Variety
-        fields = "__all__"
-
-
-class RateSeedSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = RateSeed
         fields = "__all__"
 
 
