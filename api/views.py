@@ -5,13 +5,13 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 
 from rest_framework_simplejwt.authentication import JWTAuthentication
-#from rest_framework_simplejwt.views import TokenObtainPairView
+from rest_framework_simplejwt.views import TokenObtainPairView
 from .serializers import *
 from .models import *
 
 
-"""class TokenPairView(TokenObtainPairView):
-    serializer_class = TokenPairSerializer"""
+class TokenPairView(TokenObtainPairView):
+    serializer_class = TokenPairSerializer
 
 
 class ActorViewset(viewsets.ModelViewSet):
@@ -28,18 +28,11 @@ class ClientViewset(viewsets.ModelViewSet):
     serializer_class = ClientSerializer
 
 
-class Adress_distributorViewset(viewsets.ModelViewSet):
+class AdressDistributorViewset(viewsets.ModelViewSet):
     authentication_classes = [SessionAuthentication, JWTAuthentication]
     permission_classes = [IsAuthenticated]
-    queryset = Adress_distributor.objects.all()
-    serializer_class = Adress_distributorSerializer
-
-
-class SeedCategoryViewset(viewsets.ModelViewSet):
-    authentication_classes = [SessionAuthentication, JWTAuthentication]
-    permission_classes = [IsAuthenticated]
-    queryset = SeedCategory.objects.all()
-    serializer_class = SeedCategorySerializer
+    queryset = AdressDistributor.objects.all()
+    serializer_class = AdressDistributorSerializer
 
 
 class VarietyViewset(viewsets.ModelViewSet):
@@ -54,13 +47,6 @@ class CommandeViewset(viewsets.ModelViewSet):
     permission_classes = [IsAuthenticated]
     queryset = Commande.objects.all()
     serializer_class = CommandeSerializer
-
-
-class RateSeedViewset(viewsets.ModelViewSet):
-    authentication_classes = [SessionAuthentication, JWTAuthentication]
-    permission_classes = [IsAuthenticated]
-    queryset = RateSeed.objects.all()
-    serializer_class = RateSeedSerializer
 
 
 class PlantViewset(viewsets.ModelViewSet):
