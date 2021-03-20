@@ -17,21 +17,14 @@ class ClientAdmin(admin.ModelAdmin):
 	search_field = "nom", "tel"
 	ordering = "nom", "tel"
 
-@admin.register(Adress_distributor)
-class Adress_distributorAdmin(admin.ModelAdmin):
+@admin.register(AdressDistributor)
+class AdressDistributorAdmin(admin.ModelAdmin):
 	list_display = "province", "commune","colline","phone_number"
 	list_filter = "province", "commune","colline","phone_number"
 	search_field = "province", "commune","colline","phone_number"
 	ordering = "province", "commune"
 
 	select_related = True
-
-@admin.register(RateSeed)
-class RateSeedAdmin(admin.ModelAdmin):
-	list_display = "validé", "actor"
-	list_filter = "validé", "actor"
-	search_field = "validé", "actor"
-	ordering = "validé",
 
 @admin.register(Plant)
 
@@ -63,9 +56,9 @@ class VarietyAdmin(admin.ModelAdmin):
 
 @admin.register(Stock)
 class StockAdmin(admin.ModelAdmin):
-	list_display = "plant", "lot","quantite_initiale","quantite_actuelle","date"
-	list_filter = "plant", "lot","quantite_initiale","quantite_actuelle","date"
-	search_field = "plant", "lot","quantite_initiale","quantite_actuelle","date"
-	ordering = "plant", "lot","quantite_initiale","quantite_actuelle","date"
+	list_display = "seed","quantite_initiale","quantite_actuelle","date"
+	list_filter = "seed","quantite_initiale","quantite_actuelle","date"
+	search_field = "seed","quantite_initiale","quantite_actuelle","date"
+	ordering = "seed","quantite_initiale","quantite_actuelle","date"
 
 	select_related = True
