@@ -65,7 +65,7 @@ class PlantSerializer(serializers.ModelSerializer):
 class SeedSerializer(serializers.ModelSerializer):
     def to_representation(self, obj):
         rep = super().to_representation(obj)
-        rep['nom'] = obj.nom.nom
+        rep['plant'] = obj.plant.plant
         rep['variety'] = obj.variety.nom
         return rep  
 
@@ -80,7 +80,7 @@ class SeedSerializer(serializers.ModelSerializer):
 #         fields = "__all__"
 
 
-class StockSerializer(serializers.ModelSerializer):
+class StockSerializer(serializers.ModelSerializer): 
    
     class Meta:
         model = Stock

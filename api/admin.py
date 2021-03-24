@@ -30,10 +30,10 @@ class AdressDistributorAdmin(admin.ModelAdmin):
 
 @admin.register(Seed)
 class SeedAdmin(admin.ModelAdmin):
-	list_display = "nom", 
-	list_filter = "nom", 
-	search_field = "nom", 
-	ordering = "nom", 
+	list_display = "plant", 
+	list_filter = "plant", 
+	search_field = "plant", 
+	ordering = "plant", 
 
 	select_related = True
 

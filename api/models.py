@@ -25,14 +25,14 @@ class AdressDistributor(models.Model):
 
 
 class Plant(models.Model):
-    nom = models.CharField(max_length=50, unique=True)
+    plant = models.CharField(max_length=50, unique=True)
 
 
     def __str__(self):
-        return f'{self.nom}'
+        return f'{self.plant}'
 
     class Meta:
-        ordering = ["nom"]
+        ordering = ["plant"]
 
 class Client(models.Model):
     nom = models.CharField(max_length=30)
@@ -62,7 +62,7 @@ class Seed(models.Model):
 		('Cerifiés', 'Cerifiés'),
 		)
 	category = models.CharField(max_length=30,choices=SEED_CHOICES, verbose_name='Category')
-	nom = models.OneToOneField(Plant,on_delete=models.PROTECT)
+	plant = models.OneToOneField(Plant,on_delete=models.PROTECT)
 	prix = models.PositiveIntegerField()
 	disponible = models.BooleanField(default=True)
 	photo = models.FileField()
