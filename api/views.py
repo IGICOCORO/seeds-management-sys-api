@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from rest_framework import viewsets
 from rest_framework.authentication import SessionAuthentication
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnly
 from rest_framework.response import Response
 
 from rest_framework_simplejwt.authentication import JWTAuthentication
@@ -14,11 +14,55 @@ class TokenPairView(TokenObtainPairView):
     serializer_class = TokenPairSerializer
 
 
-class ActorViewset(viewsets.ModelViewSet):
-    authentication_classes = [SessionAuthentication, JWTAuthentication]
+class UserViewset(viewsets.ModelViewSet):
+    authentication_classes = (SessionAuthentication, JWTAuthentication)
     permission_classes = [IsAuthenticated]
-    queryset = Actor.objects.all()
-    serializer_class = ActorSerializer
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+
+    def create(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        data = request.data
+        user = User(
+            username = data.get("username"),
+            email = data.get("email"),
+            first_name = data.get("first_name"),
+            last_name = data.get("last_name")
+        )
+        user.set_password("password")
+        
+        user.save()
+        serializer = UserSerializer(user, many=False)
+        return Response(serializer.data, 201)
+
+    def update(self, request, *args, **kwargs):
+        user = request.user
+        data = request.data
+        username = data.get("username")
+        if username : user.username = username
+        password = data.get("password")
+        if password : user.set_password(password)
+        user.save()
+        serializer = UserSerializer(user, many=False)
+        return Response(serializer.data, 201)
+
+    def patch(self, request, *args, **kwargs):
+        return self.update(request, *args, **kwargs)
+
+    def destroy(self, request, *args, **kwargs):
+        user = self.get_object()
+        user.is_active = False
+        user.save()
+        return Response({'status': 'success'}, 204)
+
+
+
+# class ActorViewset(viewsets.ModelViewSet):
+#     authentication_classes = [SessionAuthentication, JWTAuthentication]
+#     permission_classes = [IsAuthenticated]
+#     queryset = Actor.objects.all()
+#     serializer_class = ActorSerializer
 
 
 class ClientViewset(viewsets.ModelViewSet):
@@ -42,11 +86,11 @@ class VarietyViewset(viewsets.ModelViewSet):
     serializer_class = VarietySerializer
 
 
-class CommandeViewset(viewsets.ModelViewSet):
-    authentication_classes = [SessionAuthentication, JWTAuthentication]
-    permission_classes = [IsAuthenticated]
-    queryset = Commande.objects.all()
-    serializer_class = CommandeSerializer
+# class CommandeViewset(viewsets.ModelViewSet):
+#     authentication_classes = [SessionAuthentication, JWTAuthentication]
+#     permission_classes = [IsAuthenticated]
+#     queryset = Commande.objects.all()
+#     serializer_class = CommandeSerializer
 
 
 class PlantViewset(viewsets.ModelViewSet):
@@ -58,13 +102,13 @@ class PlantViewset(viewsets.ModelViewSet):
 
 class SeedViewset(viewsets.ModelViewSet):
     authentication_classes = [SessionAuthentication, JWTAuthentication]
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticatedOrReadOnly]
     queryset = Seed.objects.all()
     serializer_class = SeedSerializer
 
 
 class StockViewset(viewsets.ModelViewSet):
     authentication_classes = [SessionAuthentication, JWTAuthentication]
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticatedOrReadOnly]
     queryset = Stock.objects.all()
     serializer_class = StockSerializer
