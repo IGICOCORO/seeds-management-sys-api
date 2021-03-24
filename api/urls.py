@@ -6,11 +6,12 @@ from rest_framework_simplejwt.views import TokenRefreshView, TokenObtainPairView
 
 router = routers.DefaultRouter()
 
-router.register("acteur", ActorViewset)
+# router.register("acteur", ActorViewset)
 router.register("client", ClientViewset)
 router.register("Adresse_fournisseur", AdressDistributorViewset)
 router.register("variete", VarietyViewset)
-router.register("commande", CommandeViewset)
+# router.register("commande", CommandeViewset)
+router.register("user",UserViewset)
 router.register("plantes", PlantViewset)
 router.register("semences", SeedViewset)
 router.register("stock", StockViewset)
