@@ -4,13 +4,13 @@ from django.utils import timezone
 import time
 
 # Create your models here.
-class Actor(models.Model):
-	user = models.OneToOneField(User,on_delete= models.CASCADE)
-	tel = models.PositiveIntegerField()
+# class Actor(models.Model):
+# 	user = models.OneToOneField(User,on_delete= models.CASCADE)
+# 	tel = models.PositiveIntegerField()
 
 
-	def __str__(self):
-		return f"{self.user.first_name} {self.user.last_name}"
+# 	def __str__(self):
+# 		return f"{self.user.username} {self.tel}"
 
 
 class AdressDistributor(models.Model):
@@ -21,7 +21,7 @@ class AdressDistributor(models.Model):
 	distributor = models.OneToOneField(User,on_delete=models.CASCADE)
 
 	def __str__(self):
-		return f'{self.province} {self.commune} {self.colline} {self.phone_number}'
+		return f'{self.distributor.username} {self.commune} {self.province} {self.phone_number}'
 
 
 class Plant(models.Model):
@@ -71,7 +71,7 @@ class Seed(models.Model):
 
 
 	def __str__(self):
-		return  f"{self.nom} {self.category} {self.prix} {self.disponible} {self.quantite} {self.etat_sanitaire} {self.variety} "
+		return  f"{self.nom} {self.category} {self.prix} {self.disponible}  {self.variety} "
 
 
 class Stock(models.Model):
@@ -80,19 +80,19 @@ class Stock(models.Model):
     quantite_initiale = models.FloatField(
         default=None, verbose_name='quantité initial')
     quantite_actuelle = models.FloatField(
-        editable=False, default=None, verbose_name='quantité actuelle')
+        editable=False, default=0, verbose_name='quantité actuelle')
     date = models.DateField(blank=True, default=timezone.now)
 
 
     def __str__(self):
         return f"{self.quantite_actuelle} du {self.date}"
 
-class Commande(models.Model):
-    actor = models.ForeignKey(
-        Actor, on_delete=models.PROTECT)
-    client = models.ForeignKey(
-        Client, blank=True, null=True, on_delete=models.CASCADE)
-    date = models.DateField(blank=True, default=timezone.now)
+# class Commande(models.Model):
+#     actor = models.ForeignKey(
+#         Actor, on_delete=models.PROTECT)
+#     client = models.ForeignKey(
+#         Client, blank=True, null=True, on_delete=models.CASCADE)
+#     date = models.DateField(blank=True, default=timezone.now)
     
-    def __str__(self):
-        return f"de {self.client.nom} par {self.client.user.username}"
+#     def __str__(self):
+#         return f"de {self.client.nom} par {self.client.user.username}"
