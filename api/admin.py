@@ -1,14 +1,14 @@
 from django.contrib import admin
 from .models import *
 
-@admin.register(Actor)
-class ActorAdmin(admin.ModelAdmin):
-	list_display = "user", "tel"
-	list_filter = "user", "tel"
-	search_field = "user", "tel"
-	ordering = "user", "tel"
+# @admin.register(Actor)
+# class ActorAdmin(admin.ModelAdmin):
+# 	list_display = "user", "tel"
+# 	list_filter = "user", "tel"
+# 	search_field = "user", "tel"
+# 	ordering = "user", "tel"
 
-	select_related = True
+# 	select_related = True
 
 @admin.register(Client)
 class ClientAdmin(admin.ModelAdmin):
@@ -37,13 +37,13 @@ class SeedAdmin(admin.ModelAdmin):
 
 	select_related = True
 
-@admin.register(Commande)
-class CommandeAdmin(admin.ModelAdmin):
-	list_display = "actor", "client", "date"
-	list_filter = "actor", "client", "date"
-	search_field = "actor", "client", "date"
-	ordering = "actor", "client", "date"
-	select_related = True
+# @admin.register(Commande)
+# class CommandeAdmin(admin.ModelAdmin):
+# 	list_display = "actor", "client", "date"
+# 	list_filter = "actor", "client", "date"
+# 	search_field = "actor", "client", "date"
+# 	ordering = "actor", "client", "date"
+# 	select_related = True
 
 @admin.register(Variety)
 class VarietyAdmin(admin.ModelAdmin):
