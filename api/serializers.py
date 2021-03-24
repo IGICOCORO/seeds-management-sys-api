@@ -81,11 +81,8 @@ class SeedSerializer(serializers.ModelSerializer):
 
 
 class StockSerializer(serializers.ModelSerializer):
-    def to_representation(self, obj):
-        rep = super().to_representation(obj)
-        rep['seed'] = obj.seed.nom
-        return rep  
-
+   
     class Meta:
         model = Stock
         fields = "__all__"
+        depth =1
