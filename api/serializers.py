@@ -63,6 +63,7 @@ class PlantSerializer(serializers.ModelSerializer):
 
 
 class SeedSerializer(serializers.ModelSerializer):
+    photo = serializers.ImageField(max_length=None, use_url=True)
     def to_representation(self, obj):
         rep = super().to_representation(obj)
         rep['plant'] = obj.plant.plant
@@ -72,6 +73,7 @@ class SeedSerializer(serializers.ModelSerializer):
     class Meta:
         model = Seed
         fields = '__all__'
+        depth = 1
 
 
 # class CommandeSerializer(serializers.ModelSerializer):

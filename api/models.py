@@ -65,7 +65,7 @@ class Seed(models.Model):
 	plant = models.OneToOneField(Plant,on_delete=models.PROTECT)
 	prix = models.PositiveIntegerField()
 	disponible = models.BooleanField(default=True)
-	photo = models.FileField()
+	photo = models.ImageField(upload_to="media/", null=True, blank=True)
 	etat_sanitaire = models.TextField(max_length=30)
 	variety    = models.ForeignKey(Variety, on_delete=models.PROTECT)
 
