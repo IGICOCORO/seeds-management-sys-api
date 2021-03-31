@@ -73,7 +73,6 @@ class SeedSerializer(serializers.ModelSerializer):
     class Meta:
         model = Seed
         fields = '__all__'
-        depth = 1
 
 
 # class CommandeSerializer(serializers.ModelSerializer):

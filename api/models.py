@@ -62,16 +62,16 @@ class Seed(models.Model):
 		('Cerifiés', 'Cerifiés'),
 		)
 	category = models.CharField(max_length=30,choices=SEED_CHOICES, verbose_name='Category')
-	plant = models.OneToOneField(Plant,on_delete=models.PROTECT)
+	plant = models.ForeignKey(Plant,on_delete=models.PROTECT)
 	prix = models.PositiveIntegerField()
 	disponible = models.BooleanField(default=True)
 	photo = models.ImageField(upload_to="media/", null=True, blank=True)
 	etat_sanitaire = models.TextField(max_length=30)
-	variety    = models.ForeignKey(Variety, on_delete=models.PROTECT)
+	variety    = models.ForeignKey("Variety", on_delete=models.PROTECT)
 
 
 	def __str__(self):
-		return  f"{self.nom} {self.category} {self.prix} {self.disponible}  {self.variety} "
+		return  f"{self.nom} {self.category} {self.prix} {self.disponible}"
 
 
 class Stock(models.Model):
