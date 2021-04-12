@@ -3,14 +3,6 @@ from django.contrib.auth.models import User
 from django.utils import timezone
 import time
 
-# Create your models here.
-# class Actor(models.Model):
-# 	user = models.OneToOneField(User,on_delete= models.CASCADE)
-# 	tel = models.PositiveIntegerField()
-
-
-# 	def __str__(self):
-# 		return f"{self.user.username} {self.tel}"
 
 
 class AdressDistributor(models.Model):
@@ -87,12 +79,13 @@ class Stock(models.Model):
     def __str__(self):
         return f"{self.quantite_actuelle} du {self.date}"
 
-# class Commande(models.Model):
-#     actor = models.ForeignKey(
-#         Actor, on_delete=models.PROTECT)
-#     client = models.ForeignKey(
-#         Client, blank=True, null=True, on_delete=models.CASCADE)
-#     date = models.DateField(blank=True, default=timezone.now)
-    
-#     def __str__(self):
-#         return f"de {self.client.nom} par {self.client.user.username}"
+class Vente(models.Model):
+	client = models.ForeignKey(Client,on_delete=models.CASCADE)
+	quantite_achetee = models.PositiveIntegerField(default=0)
+	prix_de_vente = models.CharField(max_length=30)
+	seed = models.ForeignKey(Seed,on_delete=models.CASCADE)
+	date = models.DateField(default=timezone.now)
+
+	def ___str__(self):
+		return f"{self.client}{self.quantite_achetee} {self.seed} le {self.date} "
+
