@@ -62,3 +62,12 @@ class StockAdmin(admin.ModelAdmin):
 	ordering = "seed","quantite_initiale","quantite_actuelle","date"
 
 	select_related = True
+
+@admin.register(Vente)
+class VenteAdmin(admin.ModelAdmin):
+	list_display = "seed","prix_de_vente","quantite_achetee","client"
+	list_filter = "seed","prix_de_vente","client"
+	search_field = "seed","prix_de_vente","client"
+	ordering = "seed"
+
+	select_related = True
