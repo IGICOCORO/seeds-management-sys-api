@@ -112,3 +112,16 @@ class StockViewset(viewsets.ModelViewSet):
     permission_classes = [IsAuthenticatedOrReadOnly]
     queryset = Stock.objects.all()
     serializer_class = StockSerializer
+
+
+class VenteViewset(viewsets.ModelViewSet):
+    authentication_classes = [SessionAuthentication, JWTAuthentication]
+    permission_classes = [IsAuthenticatedOrReadOnly]
+    queryset = Vente.objects.all()
+    serializer_class = VenteSerializer
+
+class AchatViewset(viewsets.ModelViewSet):
+    authentication_classes = [SessionAuthentication, JWTAuthentication]
+    permission_classes = [IsAuthenticatedOrReadOnly]
+    queryset = Achat.objects.all()
+    serializer_class = AchatSerializer
