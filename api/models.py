@@ -47,45 +47,66 @@ class Variety(models.Model):
 
 class Seed(models.Model):
 
-	SEED_CHOICES = (
+	SEED_CATEGORIES = (
 		('Souches', 'Souches'),
 		('Pré_Bases', 'Pré_Bases'),
 		('Base', 'Base'),
 		('Cerifiés', 'Cerifiés'),
 		)
-	category = models.CharField(max_length=30,choices=SEED_CHOICES, verbose_name='Category')
+	category = models.CharField(max_length=30,choices=SEED_CATEGORIES, verbose_name='Category')
 	plant = models.ForeignKey(Plant,on_delete=models.PROTECT)
 	prix = models.PositiveIntegerField()
 	disponible = models.BooleanField(default=True)
 	photo = models.ImageField(upload_to="media/", null=True, blank=True)
 	etat_sanitaire = models.TextField(max_length=30)
 	variety    = models.ForeignKey("Variety", on_delete=models.PROTECT)
+	
 
 
 	def __str__(self):
-		return  f"{self.nom} {self.category} {self.prix} {self.disponible}"
+		return  f"{self.plant} {self.category} {self.prix} {self.disponible}"
 
 
 class Stock(models.Model):
     seed = models.ForeignKey(
         Seed, default=None, on_delete=models.CASCADE)
-    quantite_initiale = models.FloatField(
-        default=None, verbose_name='quantité initial')
-    quantite_actuelle = models.FloatField(
-        editable=False, default=0, verbose_name='quantité actuelle')
+    quantite_achetee= models.ForeignKey("Achat",on_delete=models.CASCADE)
+    quantite_actuelle = models.FloatField(default=0, verbose_name='quantité actuelle')
     date = models.DateField(blank=True, default=timezone.now)
 
 
     def __str__(self):
-        return f"{self.quantite_actuelle} du {self.date}"
+        return f"{self.quantite_achetee.quantite_achetee} du {self.date}"
+
+
+    def save(self,*args,**kwargs):
+    	pass
 
 class Vente(models.Model):
 	client = models.ForeignKey(Client,on_delete=models.CASCADE)
-	quantite_achetee = models.PositiveIntegerField(default=0)
+	quantite_vendue = models.PositiveIntegerField(default=0)
 	prix_de_vente = models.CharField(max_length=30)
 	seed = models.ForeignKey(Seed,on_delete=models.CASCADE)
-	date = models.DateField(default=timezone.now)
+	date = models.DateField(blank=False,default=timezone.now)
 
 	def ___str__(self):
-		return f"{self.client}{self.quantite_achetee} {self.seed} le {self.date} "
+		return f"{self.client}{self.quantite_vendue} {self.seed} le {self.date} "
 
+class Achat(models.Model):
+	seed = models.ForeignKey("Seed", on_delete=models.PROTECT)
+	quantite_achetee = models.FloatField()
+	date = models.DateTimeField(blank=True, default=timezone.now)
+	user = models.ForeignKey(User, default=1, on_delete=models.PROTECT)
+	details = models.TextField(blank=True, null=True)
+	prix_achat = models.FloatField()
+
+	def __str__(self):
+		return f"{self.seed.plant} par {self.user.username}"
+
+	def save(self, *args, **kwargs):
+		if self.quantite_achetee<0:
+			raise Exception("Achat.achetee cannot be negative number")
+		super().save(*args, **kwargs)
+
+	class Meta:
+		ordering = ["seed"]
