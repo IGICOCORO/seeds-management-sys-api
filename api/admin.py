@@ -56,18 +56,28 @@ class VarietyAdmin(admin.ModelAdmin):
 
 @admin.register(Stock)
 class StockAdmin(admin.ModelAdmin):
-	list_display = "seed","quantite_initiale","quantite_actuelle","date"
-	list_filter = "seed","quantite_initiale","quantite_actuelle","date"
-	search_field = "seed","quantite_initiale","quantite_actuelle","date"
-	ordering = "seed","quantite_initiale","quantite_actuelle","date"
+	list_display = "seed","quantite_achetee","quantite_actuelle","date"
+	list_filter = "seed","quantite_achetee","quantite_actuelle","date"
+	search_field = "seed","quantite_achetee","quantite_actuelle","date"
+	ordering = "seed","quantite_achetee","quantite_actuelle","date"
 
 	select_related = True
 
 @admin.register(Vente)
 class VenteAdmin(admin.ModelAdmin):
-	list_display = "seed","prix_de_vente","quantite_achetee","client"
-	list_filter = "seed","prix_de_vente","client"
-	search_field = "seed","prix_de_vente","client"
-	ordering = "seed"
+	list_display = "seed","quantite_vendue","client"
+	list_filter = "seed","quantite_vendue","client"
+	search_field = "seed","quantite_vendue","client"
+	ordering = "seed",
 
 	select_related = True
+
+
+@admin.register(Achat)
+class AchatAdmin(admin.ModelAdmin):
+	list_display = "seed","quantite_achetee","date","user","details","prix_achat"
+	list_filter = "seed","quantite_achetee","date","prix_achat","details"
+	search_field = "seed","quantite_achetee","user","prix_achat","details"
+	ordering = "seed",
+	select_related = True
+
