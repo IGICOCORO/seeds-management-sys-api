@@ -5,7 +5,7 @@ import time
 
 
 
-class AdressDistributor(models.Model):
+class Multiplicator(models.Model):
 	province = models.CharField(max_length=30)
 	commune = models.CharField(max_length=30)
 	colline = models.CharField(max_length=20)
