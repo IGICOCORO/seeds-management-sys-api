@@ -68,25 +68,23 @@ class Seed(models.Model):
 
 
 class Stock(models.Model):
-    seed = models.ForeignKey(
-        Seed, default=None, on_delete=models.CASCADE)
-    quantite_achetee= models.ForeignKey("Achat",on_delete=models.CASCADE)
-    quantite_actuelle = models.FloatField(default=0, verbose_name='quantité actuelle')
+    achat= models.ForeignKey("Achat",on_delete=models.PROTECT)
+    quantite = models.FloatField(default=0, verbose_name='quantité restante')
+    resultat = models.FloatField(default=0, verbose_name='quantité multipliée')
     date = models.DateField(blank=True, default=timezone.now)
 
 
     def __str__(self):
-        return f"{self.quantite_achetee.quantite_achetee} du {self.date}"
+        return f"{self.quantite} {self.achat} du {self.date}"
 
 
     def save(self,*args,**kwargs):
     	pass
 
 class Vente(models.Model):
-	client = models.ForeignKey(Client,on_delete=models.CASCADE)
 	quantite_vendue = models.PositiveIntegerField(default=0)
 	prix_de_vente = models.CharField(max_length=30)
-	seed = models.ForeignKey(Seed,on_delete=models.CASCADE)
+	stock = models.ForeignKey(Stock,on_delete=models.PROTECT)
 	date = models.DateField(blank=False,default=timezone.now)
 
 	def ___str__(self):
@@ -95,7 +93,8 @@ class Vente(models.Model):
 class Achat(models.Model):
 	seed = models.ForeignKey("Seed", on_delete=models.PROTECT)
 	quantite_achetee = models.FloatField()
-	date = models.DateTimeField(blank=True, default=timezone.now)
+	date = models.DateField(blank=True, default=timezone.now)
+	is_valid = models.BooleanField()
 	user = models.ForeignKey(User, default=1, on_delete=models.PROTECT)
 	details = models.TextField(blank=True, null=True)
 	prix_achat = models.FloatField()
