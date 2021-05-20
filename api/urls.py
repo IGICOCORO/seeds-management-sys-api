@@ -11,9 +11,9 @@ from django.conf import settings
 
 router = routers.DefaultRouter()
 
-# router.register("acteur", ActorViewset)
+
 router.register("client", ClientViewset)
-router.register("Adresse_fournisseur", AdressDistributorViewset)
+router.register("Multiplicateur", MultiplicatorViewset)
 router.register("variete", VarietyViewset)
 router.register("vente", VenteViewset)
 router.register("achat", AchatViewset)
