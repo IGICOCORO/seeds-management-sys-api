@@ -58,13 +58,6 @@ class UserViewset(viewsets.ModelViewSet):
 
 
 
-# class ActorViewset(viewsets.ModelViewSet):
-#     authentication_classes = [SessionAuthentication, JWTAuthentication]
-#     permission_classes = [IsAuthenticated]
-#     queryset = Actor.objects.all()
-#     serializer_class = ActorSerializer
-
-
 class ClientViewset(viewsets.ModelViewSet):
     authentication_classes = [SessionAuthentication, JWTAuthentication]
     permission_classes = [IsAuthenticated]
@@ -72,11 +65,11 @@ class ClientViewset(viewsets.ModelViewSet):
     serializer_class = ClientSerializer
 
 
-class AdressDistributorViewset(viewsets.ModelViewSet):
+class MultiplicatorViewset(viewsets.ModelViewSet):
     authentication_classes = [SessionAuthentication, JWTAuthentication]
     permission_classes = [IsAuthenticated]
-    queryset = AdressDistributor.objects.all()
-    serializer_class = AdressDistributorSerializer
+    queryset = Multiplicator.objects.all()
+    serializer_class = MultiplicatorSerializer
 
 
 class VarietyViewset(viewsets.ModelViewSet):
@@ -84,13 +77,6 @@ class VarietyViewset(viewsets.ModelViewSet):
     permission_classes = [IsAuthenticated]
     queryset = Variety.objects.all()
     serializer_class = VarietySerializer
-
-
-# class CommandeViewset(viewsets.ModelViewSet):
-#     authentication_classes = [SessionAuthentication, JWTAuthentication]
-#     permission_classes = [IsAuthenticated]
-#     queryset = Commande.objects.all()
-#     serializer_class = CommandeSerializer
 
 
 class PlantViewset(viewsets.ModelViewSet):
