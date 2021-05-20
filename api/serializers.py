@@ -21,12 +21,6 @@ class UserSerializer(serializers.ModelSerializer):
         exclude = "last_login","is_staff","date_joined","user_permissions"
 
 
-# class ActorSerializer(serializers.ModelSerializer):
-#     user = serializers.StringRelatedField()
-
-#     class Meta:
-#         model = Actor
-#         fields = "__all__"
 
 class ClientSerializer(serializers.ModelSerializer):
 
@@ -35,7 +29,7 @@ class ClientSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 
-class AdressDistributorSerializer(serializers.ModelSerializer):
+class MultiplicatorSerializer(serializers.ModelSerializer):
 
     def to_representation(self, obj):
         rep = super().to_representation(obj)
@@ -43,7 +37,7 @@ class AdressDistributorSerializer(serializers.ModelSerializer):
         return rep  
 
     class Meta:
-        model = AdressDistributor
+        model = Multiplicator
         fields = "__all__"
 
 
@@ -74,19 +68,11 @@ class SeedSerializer(serializers.ModelSerializer):
         model = Seed
         fields = '__all__'
 
-
-# class CommandeSerializer(serializers.ModelSerializer):
-#     class Meta:
-#         model = Commande
-#         fields = "__all__"
-
-
 class StockSerializer(serializers.ModelSerializer): 
    
     class Meta:
         model = Stock
         fields = "__all__"
-        depth =1
 
 class AchatSerializer(serializers.ModelSerializer): 
    
