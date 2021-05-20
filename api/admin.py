@@ -1,14 +1,6 @@
 from django.contrib import admin
 from .models import *
 
-# @admin.register(Actor)
-# class ActorAdmin(admin.ModelAdmin):
-# 	list_display = "user", "tel"
-# 	list_filter = "user", "tel"
-# 	search_field = "user", "tel"
-# 	ordering = "user", "tel"
-
-# 	select_related = True
 
 @admin.register(Client)
 class ClientAdmin(admin.ModelAdmin):
@@ -17,8 +9,8 @@ class ClientAdmin(admin.ModelAdmin):
 	search_field = "nom", "tel"
 	ordering = "nom", "tel"
 
-@admin.register(AdressDistributor)
-class AdressDistributorAdmin(admin.ModelAdmin):
+@admin.register(Multiplicator)
+class MultiplicatorAdmin(admin.ModelAdmin):
 	list_display = "province", "commune","colline","phone_number"
 	list_filter = "province", "commune","colline","phone_number"
 	search_field = "province", "commune","colline","phone_number"
@@ -30,20 +22,13 @@ class AdressDistributorAdmin(admin.ModelAdmin):
 
 @admin.register(Seed)
 class SeedAdmin(admin.ModelAdmin):
-	list_display = "plant", 
-	list_filter = "plant", 
-	search_field = "plant", 
+	list_display = "plant","disponible" 
+	list_filter = "plant","disponible" 
+	search_field = "plant","disponible" 
 	ordering = "plant", 
 
 	select_related = True
 
-# @admin.register(Commande)
-# class CommandeAdmin(admin.ModelAdmin):
-# 	list_display = "actor", "client", "date"
-# 	list_filter = "actor", "client", "date"
-# 	search_field = "actor", "client", "date"
-# 	ordering = "actor", "client", "date"
-# 	select_related = True
 
 @admin.register(Variety)
 class VarietyAdmin(admin.ModelAdmin):
@@ -56,19 +41,19 @@ class VarietyAdmin(admin.ModelAdmin):
 
 @admin.register(Stock)
 class StockAdmin(admin.ModelAdmin):
-	list_display = "seed","quantite_achetee","quantite_actuelle","date"
-	list_filter = "seed","quantite_achetee","quantite_actuelle","date"
-	search_field = "seed","quantite_achetee","quantite_actuelle","date"
-	ordering = "seed","quantite_achetee","quantite_actuelle","date"
+	list_display = "achat","quantite","resultat","date"
+	list_filter = "achat","quantite","resultat","date"
+	search_field = "achat","quantite","resultat","date"
+	ordering = "achat","quantite","resultat","date"
 
 	select_related = True
 
 @admin.register(Vente)
 class VenteAdmin(admin.ModelAdmin):
-	list_display = "seed","quantite_vendue","client"
-	list_filter = "seed","quantite_vendue","client"
-	search_field = "seed","quantite_vendue","client"
-	ordering = "seed",
+	list_display = "stock","quantite_vendue","client","prix_de_vente"
+	list_filter = "stock","quantite_vendue","client","prix_de_vente"
+	search_field = "stock","quantite_vendue","client","prix_de_vente"
+	ordering = "stock",
 
 	select_related = True
 
