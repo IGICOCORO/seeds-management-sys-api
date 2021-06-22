@@ -22,8 +22,8 @@ class MultiplicatorAdmin(admin.ModelAdmin):
 
 @admin.register(Seed)
 class SeedAdmin(admin.ModelAdmin):
-	list_display = "plant","disponible" 
-	list_filter = "plant","disponible" 
+	list_display = "plant",
+	list_filter = "plant",
 	search_field = "plant","disponible" 
 	ordering = "plant", 
 
@@ -50,8 +50,8 @@ class StockAdmin(admin.ModelAdmin):
 
 @admin.register(Vente)
 class VenteAdmin(admin.ModelAdmin):
-	list_display = "stock","quantite_vendue","client","prix_de_vente"
-	list_filter = "stock","quantite_vendue","client","prix_de_vente"
+	list_display = "stock","quantite_vendue","prix_de_vente"
+	list_filter = "stock","quantite_vendue","prix_de_vente"
 	search_field = "stock","quantite_vendue","client","prix_de_vente"
 	ordering = "stock",
 

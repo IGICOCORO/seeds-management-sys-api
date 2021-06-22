@@ -57,7 +57,7 @@ class Seed(models.Model):
 	plant = models.ForeignKey(Plant,on_delete=models.PROTECT)
 	prix = models.PositiveIntegerField()
 	disponible = models.BooleanField(default=True)
-	photo = models.ImageField(upload_to="media/", null=True, blank=True)
+	photo = models.ImageField(blank=True,upload_to="media/")
 	etat_sanitaire = models.TextField(max_length=30)
 	variety    = models.ForeignKey("Variety", on_delete=models.PROTECT)
 	
@@ -77,14 +77,10 @@ class Stock(models.Model):
     def __str__(self):
         return f"{self.quantite} {self.achat} du {self.date}"
 
-
-    def save(self,*args,**kwargs):
-    	pass
-
 class Vente(models.Model):
 	quantite_vendue = models.PositiveIntegerField(default=0)
 	prix_de_vente = models.CharField(max_length=30)
-	stock = models.ForeignKey(Stock,on_delete=models.PROTECT)
+	stock = models.ForeignKey("Stock",on_delete=models.PROTECT)
 	date = models.DateField(blank=False,default=timezone.now)
 
 	def ___str__(self):
